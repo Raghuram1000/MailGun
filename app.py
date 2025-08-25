@@ -1,4 +1,6 @@
 from flask import Flask, request, jsonify
+from flask import send_file
+
 
 app = Flask(__name__)
 
@@ -18,6 +20,9 @@ def inbound_email():
 
     # Respond to Mailgun
     return jsonify({'status': 'success'}), 200
+@app.route('/download_csv', methods=['GET'])
+def download_csv():
+    return send_file('emails.csv', as_attachment=True)
 
 if __name__ == '__main__':
     # Run on localhost port 5000
